@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zentry Clone
 
-## Getting Started
+A responsive and animated clone of the Zentry website, built with React, Tailwind CSS, and GSAP. This project showcases smooth animations, interactive elements, and accessibility features, serving as a learning and experimentation platform for front-end technologies.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Responsive Design:** Optimized for various screen sizes, ensuring a seamless experience across devices.
+- **Smooth Animations:** Implemented using GSAP for engaging user interactions.
+- **Interactive Elements:** Enhanced with React Hooks for dynamic behavior.
+- **Accessibility:** Designed with screen reader support and accessible components.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Live Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Experience the live version here: [Zentry Clone](https://zentry-clonee.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+To set up the project locally, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/yourusername/zentry-clone.git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+2. **Navigate to the project directory:**
+    
+    cd zentry-clone
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    npm install
+
+
+4. **Start the development server:**
+
+    npm run dev
+
+
+5. **Open the project in your browser:**
+
+    Visit (http://localhost:3000) to view the application.
