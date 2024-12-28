@@ -73,8 +73,8 @@ const About: React.FC = () => {
       });
 
       gsap.to(image2Ref.current, {
-        rotateX: -y,
-        rotateY: x,
+        rotateX: -y + 10,
+        rotateY: x + 10,
         transformPerspective: 1000,
         ease: "power3.out",
         duration: 0.3,
