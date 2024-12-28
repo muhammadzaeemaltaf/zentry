@@ -25,15 +25,18 @@ To set up the project locally, follow these steps:
 
 2. **Navigate to the project directory:**
     
+    ```bash
     cd zentry-clone
 
 3. **Install dependencies:**
 
+    ```bash
     npm install
 
 
 4. **Start the development server:**
 
+    ```bash
     npm run dev
 
 
