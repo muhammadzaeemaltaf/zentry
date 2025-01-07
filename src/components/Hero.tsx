@@ -10,13 +10,20 @@ import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [hasClicked, setHasClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadedVideos, setLoadedVideos] = useState<number>(0);
   const [transformStyle, setTransformStyle] = useState<string>("");
 
-  const totalVideos: number = 4;
+  const videoSources: string[] = [
+    "https://res.cloudinary.com/dvabwft9d/video/upload/v1736096077/hero-1_bcqzzg.mp4",
+    "https://res.cloudinary.com/dvabwft9d/video/upload/hero-2_hlmg4k.mp4?_s=vp-2.1.0",
+    "https://res.cloudinary.com/dvabwft9d/video/upload/v1736096023/hero-3_pdjwmw.mp4",
+    "https://res.cloudinary.com/dvabwft9d/video/upload/v1736096062/hero-4_dqusbh.mp4",
+  ];
+
+  const totalVideos: number = 3;
 
   const nextVideoRef = useRef<null | HTMLVideoElement>(null);
   const maskClipPathRef = useRef<null | HTMLDivElement>(null);
@@ -26,16 +33,17 @@ const Hero = () => {
   };
 
   const upcommingVideoIndex: number = (currentIndex % totalVideos) + 1;
+  console.log(upcommingVideoIndex);
 
   useEffect(() => {
-    if (loadedVideos <= totalVideos - 1) {
+    if (loadedVideos <= totalVideos) {
       setIsLoading(false);
     }
   }, [loadedVideos]);
 
   const handleMiniVdClick = (): void => {
     setHasClicked(true);
-    setCurrentIndex(upcommingVideoIndex);
+    setCurrentIndex(upcommingVideoIndex === totalVideos ? 0 : upcommingVideoIndex);
   };
 
   useGSAP(
@@ -85,39 +93,38 @@ const Hero = () => {
     });
   });
 
-  const getVideoSource = (index: number): string => `/videos/hero-${index}.mp4`;
+  const getVideoSource = (index: number): string => videoSources[index];
 
- const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-  if (!maskClipPathRef.current) return;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!maskClipPathRef.current) return;
 
-  const { left, top, width, height } =
-    maskClipPathRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      maskClipPathRef.current.getBoundingClientRect();
 
-  const relativeX = (e.clientX - left) / width;
-  const relativeY = (e.clientY - top) / height;
+    const relativeX = (e.clientX - left) / width;
+    const relativeY = (e.clientY - top) / height;
 
-  const tiltX = Math.min(Math.max((relativeX - 0.5) * 15, -15), 15);
-  const tiltY = Math.min(Math.max((relativeY - 0.5) * -15, -15), 15);
+    const tiltX = Math.min(Math.max((relativeX - 0.5) * 15, -15), 15);
+    const tiltY = Math.min(Math.max((relativeY - 0.5) * -15, -15), 15);
 
-  const transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.98, 0.98, 0.98)`;
+    const transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.98, 0.98, 0.98)`;
 
-  setTransformStyle(transform);
-  maskClipPathRef.current.classList.remove("scale-0");
-  maskClipPathRef.current.classList.add("scale-100");
-  maskClipPathRef.current.classList.remove("opacity-0");
-  maskClipPathRef.current.classList.add("opacity-100");
-};
+    setTransformStyle(transform);
+    maskClipPathRef.current.classList.remove("scale-0");
+    maskClipPathRef.current.classList.add("scale-100");
+    maskClipPathRef.current.classList.remove("opacity-0");
+    maskClipPathRef.current.classList.add("opacity-100");
+  };
 
-const handleMouseLeave = () => {
-  if (!maskClipPathRef.current) return;
+  const handleMouseLeave = () => {
+    if (!maskClipPathRef.current) return;
 
-  setTransformStyle("");
-  maskClipPathRef.current.classList.remove("scale-100");
-  maskClipPathRef.current.classList.add("scale-0");
-  maskClipPathRef.current.classList.remove("opacity-0");
-  maskClipPathRef.current.classList.add("opacity-100");
-
-};
+    setTransformStyle("");
+    maskClipPathRef.current.classList.remove("scale-100");
+    maskClipPathRef.current.classList.add("scale-0");
+    maskClipPathRef.current.classList.remove("opacity-0");
+    maskClipPathRef.current.classList.add("opacity-100");
+  };
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
@@ -136,15 +143,14 @@ const handleMouseLeave = () => {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
         onMouseMove={handleMouseMove}
         onMouseDown={handleMouseLeave}
-     >
+      >
         <div>
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
             <div
               onClick={handleMiniVdClick}
               className="origin-center scale-0 opacity-0 transition-all duration-1000 ease-in"
-             
               ref={maskClipPathRef}
-           >
+            >
               <video
                 ref={nextVideoRef}
                 src={getVideoSource(upcommingVideoIndex)}
@@ -172,7 +178,7 @@ const handleMouseLeave = () => {
 
           <video
             src={getVideoSource(
-              currentIndex === totalVideos - 1 ? 1 : currentIndex
+              currentIndex === totalVideos - 1 ? 0 : currentIndex
             )}
             autoPlay
             loop
